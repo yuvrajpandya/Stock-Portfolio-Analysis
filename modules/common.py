@@ -14,15 +14,15 @@ def show_plot(df, fig_title):
   st.pyplot(fig)
 
 
-def interactive_plot(df, title):
-  fig = px.line(title = title,width=900, height=550)
+def interactive_plot(df, plot_title='',xaxes_title='',yaxes_title='',yaxes_prefix=''):
+  fig = px.line(title = plot_title,width=860, height=450)
 
   # Loop through each stock (x is the datetime index)
   for i in df.columns:
     fig.add_scatter(x = df.index, y = df[i], name = i) # add a new scatter trace
 
-  fig.update_xaxes(
-    dtick="M12")
+  fig.update_xaxes(dtick="M12",title_text=xaxes_title)
+  fig.update_yaxes(title_text=yaxes_title,tickprefix=yaxes_prefix)
 
   st.plotly_chart(fig)
 
