@@ -4,15 +4,22 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 
-# Define a function to plot the entire dataframe
-# The function takes in a dataframe df as an input argument and does not return anything back!
-# The function performs data visualization
-# Pandas works great with matplotlib, you can simply plot data directly from a Pandas DataFrame using plot() method
-def show_plot(df, fig_title):
-  fig = plt.figure(figsize=(20,10))
-  sns.lineplot(data=df,x='Date',y='AAPL')
-  st.pyplot(fig)
 
+@st.cache # efforless app performance tuning 
+def load_data(data):
+	df = pd.read_csv(data,index_col='Date',parse_dates=True) #parse date values as datetimeindex
+	df = df.apply(pd.to_numeric) #stock prices are numeric fields
+	return df
+
+# Function to normalize the prices based on the initial price
+# The function simply divides every stock by it's price at the start date (i.e.: Date = 2012-01-12)	
+def normalize(df):
+  x = df.copy()
+
+  # Loop through each stock (while ignoring time columns with index 0)
+  for i in x.columns:
+    x[i] = x[i]/x[i][0]
+  return x
 
 def interactive_plot(df, plot_title='',xaxes_title='',yaxes_title='',yaxes_prefix=''):
   fig = px.line(title = plot_title,width=860, height=450)
@@ -26,15 +33,6 @@ def interactive_plot(df, plot_title='',xaxes_title='',yaxes_title='',yaxes_prefi
 
   st.plotly_chart(fig)
 
-# Function to normalize the prices based on the initial price
-# The function simply divides every stock by it's price at the start date (i.e.: Date = 2012-01-12)	
-def normalize(df):
-  x = df.copy()
-
-  # Loop through each stock (while ignoring time columns with index 0)
-  for i in x.columns:
-    x[i] = x[i]/x[i][0]
-  return x
 
 # Let's define a function to calculate stocks daily returns (for all stocks) 
 def daily_return(df):

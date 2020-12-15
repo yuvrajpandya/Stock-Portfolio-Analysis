@@ -1,36 +1,24 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 import seaborn as sns
-from copy import copy
-from scipy import stats
 import plotly.express as px
 import plotly.figure_factory as ff
-import plotly.graph_objects as go
-from modules.common import show_plot,interactive_plot,normalize,daily_return
+from modules.common import load_data,interactive_plot,normalize,daily_return
 
-@st.cache
-def load_data(data):
-	df = pd.read_csv(data,index_col='Date',parse_dates=True) #parse date values as datetimeindex
-	df = df.apply(pd.to_numeric) #stock prices are numeric fields
-	return df
-
-@st.cache
 def run_stock_analysis():
 	stock_df = load_data('data/stock.csv')
 
 	submenu = st.sidebar.selectbox("SubMenu",["Descriptive statistics","Stock Daily Returns"])
 
 	if submenu == "Descriptive statistics":
-
 		with st.beta_expander("Raw stock prices data sorted by dates"):
 			st.dataframe(stock_df)
 		
 		with st.beta_expander("Missing data check | no missing closing price found"):
 			st.dataframe(stock_df.isnull().sum())
 
-		st.subheader("Descriptive statistics of the stock prices")
+		st.write("""#### Descriptive statistics of the stock prices""")
 		st.dataframe(stock_df.describe())
 		st.write("""
 		##### Observations:

@@ -1,17 +1,11 @@
 import streamlit as st
-import streamlit.components.v1 as stc
+# import streamlit.components.v1 as stc
 from eda.stock_returns_analysis import run_stock_analysis
+from eda.portfolio_allocation_analysis import run_portfolio_allocation_analysis
 
-html_temp = """
-		<div style="background-color:#c8c680;padding:2px;border-radius:10px">
-		<h3 style="color:#0e11b2;text-align:center;">Portfolio Allocation & Stock Returns Analysis</h3>
-		<h6 style="color:#0e11b2;text-align:center;">Applied Data Analytics</h6>
-		</div>
-		"""
 
 def main():
-	# st.title("Data Analytics - Portfolio Management")
-	stc.html(html_temp)
+	st.write("<div align='center' style='background-color:#c0bf7e;padding:5px;border-radius:5px'><h4 style='color:#0e11b2'>Portfolio Allocation & Stock Returns Analysis</h4></div><br>", unsafe_allow_html=True)
 
 	menu = ["Home","Stock Returns Analysis","Portfolio Allocation Analysis","About"]
 	choice = st.sidebar.selectbox("Menu",menu)
@@ -48,6 +42,9 @@ def main():
 
 	if choice == "Stock Returns Analysis":
 		run_stock_analysis()
+
+	if choice == "Portfolio Allocation Analysis":
+		run_portfolio_allocation_analysis()
 
 if __name__ == '__main__':
 	main()	
