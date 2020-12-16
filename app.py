@@ -51,5 +51,13 @@ def main():
 		html = f"<a href='https://www.linkedin.com/in/yuvraj-pandya'><img src='https://github.com/yuvrajpandya/ScikitLearn/raw/master/linkedin-icon.png'/></a>"
 		st.markdown(html, unsafe_allow_html=True)
 
+		st.write("""- By harnessing the power of Data Science & AI/ML, we can optimize processes, derive actionable insights, reduce costs, and enhance customer satisfaction""")
+		st.write("""- What's next? I will build predictive models using simple ML regression algorithms & Deep Neural Networks for stock price predictions""")
+
+		appreciation = st.button("Hit to show your appreciation for my work!")
+		if appreciation:
+			st.balloons()
+
+
 if __name__ == '__main__':
 	main()	

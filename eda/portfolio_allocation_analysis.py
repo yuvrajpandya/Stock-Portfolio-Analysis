@@ -44,9 +44,11 @@ def run_portfolio_allocation_analysis():
 		st.markdown("**Portfolio weights**")
 		st.dataframe(weights_df.T, height=500)
 	
-		st.markdown("Allocate funds per the weights & calculate portfolio daily worth & returns | Note the first record shows allocated funds")
+		st.markdown("Allocating funds per the weights & calculate portfolio daily worth & returns | Note the first record shows allocated funds")
 		portfolio_df = portfolio_allocation(stock_df, weights)
-		st.dataframe(portfolio_df)
+		format_dict = {col_name: '${:,}' for col_name in portfolio_df.columns[:-1]}
+		ts = pd.Timestamp('2012-01-12')
+		st.dataframe(portfolio_df.head(100).append(portfolio_df.tail(115)).style.format(format_dict).apply(lambda x: ['background: lightgreen' if x.name==ts else '' for i in x], axis=1))
 
 		# portfolio daily worth
 		interactive_plot(portfolio_df.drop(['portfolio daily worth in $', 'portfolio daily % return'], axis = 1), plot_title='Portfolio individual stocks worth in $ over time',xaxes_title='holding period',yaxes_title='stock valuations',yaxes_prefix='$')
@@ -97,13 +99,14 @@ def portfolio_allocation(df, weights):
 
 	df_portfolio['portfolio daily worth in $'] = df_portfolio.sum(axis = 1)
   
-	df_portfolio['portfolio daily % return'] = 0.0000
+	df_portfolio['portfolio daily % return'] = 0.00
 
 	# Calculate the percentage of change from the previous day
 	for i in range(1, len(df)):
-		df_portfolio['portfolio daily % return'][i] = ((df_portfolio['portfolio daily worth in $'][i] - df_portfolio['portfolio daily worth in $'][i-1]) / df_portfolio['portfolio daily worth in $'][i-1]) * 100
+		df_portfolio['portfolio daily % return'][i] = round(((df_portfolio['portfolio daily worth in $'][i] - df_portfolio['portfolio daily worth in $'][i-1]) / df_portfolio['portfolio daily worth in $'][i-1]) * 100,2)
   
 	# set the value of first row to zero, as previous value is not available
 	df_portfolio['portfolio daily % return'][0] = 0
+	
 	return df_portfolio
 
