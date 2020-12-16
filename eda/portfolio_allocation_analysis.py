@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 import plotly.figure_factory as ff
-from modules.common import load_data,interactive_plot,normalize,daily_return
+from modules.common import load_data,interactive_plot,normalize,daily_return,highlight_first
 
 def local_css(file_name):
     with open(file_name) as f:
@@ -30,7 +30,7 @@ def run_portfolio_allocation_analysis():
 	How risky is this portfolio?
 	What is the sharpe ratio of this portfolio?""")
 
-	st.subheader("We will compute overall portfolio value using random weights.")
+	st.subheader("Let's compute overall portfolio value using random weights.")
 	st.markdown("Using **'Generate allocations & recompute'** button in the sidebar different asset allocations can be applied which will recalculate the portfolio value. Go ahead & try out different allocations!!!")
 
 	if allocation_btn:
@@ -51,6 +51,7 @@ def run_portfolio_allocation_analysis():
 		# portfolio daily worth
 		interactive_plot(portfolio_df.drop(['portfolio daily worth in $', 'portfolio daily % return'], axis = 1), plot_title='Portfolio individual stocks worth in $ over time',xaxes_title='holding period',yaxes_title='stock valuations',yaxes_prefix='$')
 		st.markdown("♦Notice a whopping returns in Tesla's valuations in recent times!!!")
+		st.markdown("♦Huge drop in valuations of MGM and Boeing during the pandemic")
 
 		# Plot the portfolio daily return
 		fig = px.line(x=portfolio_df.index, y=portfolio_df['portfolio daily % return'], title="Portfolio Daily % Return",width=860, height=450)

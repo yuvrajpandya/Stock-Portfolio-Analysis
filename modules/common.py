@@ -51,4 +51,7 @@ def daily_return(df):
     df_daily_return[i][0] = 0
   
   return df_daily_return
-  
+
+def highlight_first():
+	color="yellow"
+	return "background-color: %s" % color
