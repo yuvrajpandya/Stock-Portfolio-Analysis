@@ -37,14 +37,19 @@ def main():
 				- Stock Returns Analysis
 				- Portfolio Asset Allocation Analysis
 			#### Disclaimer
-				- The raw stock prices are not adjusted for splits
+				- The raw stock prices are split-adjusted
 			""")
 
-	if choice == "Stock Returns Analysis":
+	elif choice == "Stock Returns Analysis":
 		run_stock_analysis()
 
-	if choice == "Portfolio Allocation Analysis":
+	elif choice == "Portfolio Allocation Analysis":
 		run_portfolio_allocation_analysis()
+
+	else:
+		st.subheader("Developed by Yuvraj Pandya")
+		html = f"<a href='https://www.linkedin.com/in/yuvraj-pandya'><img src='https://github.com/yuvrajpandya/Streamlit-Data-Apps/raw/master/diabetes_prediction_ml_app/images/linkedin-icon.png'/></a>"
+		st.markdown(html, unsafe_allow_html=True)
 
 if __name__ == '__main__':
 	main()	
