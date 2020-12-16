@@ -44,7 +44,7 @@ def run_portfolio_allocation_analysis():
 		st.markdown("**Portfolio weights**")
 		st.dataframe(weights_df.T, height=500)
 	
-		st.markdown("Allocating funds per the weights & calculate portfolio daily worth & returns | Note the first record shows allocated funds")
+		st.markdown("Allocating funds per the weights & calculating portfolio daily worth & returns | Note the first record shows 1mn allocated funds | Showing only first & last 100 records due to performance constraints")
 		portfolio_df = portfolio_allocation(stock_df, weights)
 		format_dict = {col_name: '${:,}' for col_name in portfolio_df.columns[:-1]}
 		ts = pd.Timestamp('2012-01-12')

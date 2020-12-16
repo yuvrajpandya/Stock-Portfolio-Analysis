@@ -54,7 +54,7 @@ def main():
 		st.write("""- By harnessing the power of Data Science & AI/ML, we can optimize processes, derive actionable insights, reduce costs, and enhance customer satisfaction""")
 		st.write("""- What's next? I will build predictive models using simple ML regression algorithms & Deep Neural Networks for stock price predictions""")
 
-		appreciation = st.button("Hit to show your appreciation for my work!")
+		appreciation = st.button("Hit to show your appreciation for my work! Thank you!")
 		if appreciation:
 			st.balloons()
 
